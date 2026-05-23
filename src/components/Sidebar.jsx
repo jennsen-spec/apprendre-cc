@@ -1,23 +1,44 @@
 import { chapters } from '../content/chapters'
 
-export default function Sidebar({ currentChapter, currentTab, progress, percent, isComplete, isUnlocked, onChapterSelect, onTabChange, onBack }) {
+export default function Sidebar({ currentChapter, currentTab, progress, percent, isComplete, isUnlocked, onChapterSelect, onTabChange, onBack, isOpen, onClose }) {
   return (
-    <div className="w-64 min-h-screen bg-[#050514] border-r border-white/[0.06] flex flex-col flex-shrink-0 sticky top-0 h-screen overflow-y-auto">
+    <div className={`
+      fixed inset-y-0 left-0 z-40 w-72
+      md:static md:w-64 md:flex md:flex-shrink-0
+      flex flex-col bg-[#050514] border-r border-white/[0.06] h-screen overflow-y-auto
+      transition-transform duration-300 ease-in-out
+      ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+      md:translate-x-0
+    `}>
 
-      <div className="p-4 border-b border-white/[0.06]">
-        <button onClick={onBack} className="text-white/30 text-xs hover:text-white/60 transition-colors mb-3 block">
-          ← Accueil
-        </button>
-        <h2 className="text-white font-bold text-sm leading-tight mb-3">Maîtriser Claude Code</h2>
-        <div className="flex items-center gap-2">
-          <div className="flex-1 h-1 bg-white/[0.04] rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-pink-400 to-purple-400 rounded-full transition-all duration-700"
-              style={{ width: `${percent}%` }}
-            />
+      <div className="p-4 border-b border-white/[0.06] flex items-start justify-between gap-2">
+        <div className="flex-1 min-w-0">
+          <button onClick={onBack} className="text-white/30 text-xs hover:text-white/60 transition-colors mb-3 block">
+            ← Accueil
+          </button>
+          <h2 className="text-white font-bold text-sm leading-tight mb-3">Maîtriser Claude Code</h2>
+          <div className="flex items-center gap-2">
+            <div className="flex-1 h-1 bg-white/[0.04] rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-pink-400 to-purple-400 rounded-full transition-all duration-700"
+                style={{ width: `${percent}%` }}
+              />
+            </div>
+            <span className="text-white/20 text-[10px] font-mono">{percent}%</span>
           </div>
-          <span className="text-white/20 text-[10px] font-mono">{percent}%</span>
         </div>
+
+        {/* Close button — mobile only */}
+        <button
+          onClick={onClose}
+          className="md:hidden text-white/30 hover:text-white/70 transition-colors p-1 flex-shrink-0 mt-1"
+          aria-label="Fermer le menu"
+        >
+          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="4" y1="4" x2="14" y2="14" />
+            <line x1="14" y1="4" x2="4" y2="14" />
+          </svg>
+        </button>
       </div>
 
       <div className="flex-1 p-3 flex flex-col gap-1">

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { chapters } from '../content/chapters'
 import Sidebar from './Sidebar'
 import LearnTab from './LearnTab'
@@ -11,6 +12,7 @@ const TAB_LABELS = {
 }
 
 export default function CoursePage({ currentChapter, currentTab, progress, percent, isComplete, isUnlocked, onChapterSelect, onTabChange, onProgressUpdate, onBack }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const chapter = chapters[currentChapter]
   const p       = progress[currentChapter]
 
@@ -20,8 +22,21 @@ export default function CoursePage({ currentChapter, currentTab, progress, perce
     act:    p.actDone,
   }
 
+  const handleChapterSelect = (i) => {
+    onChapterSelect(i)
+    setSidebarOpen(false)
+  }
+
   return (
     <div className="min-h-screen bg-[#08081a] text-white flex">
+
+      {/* Overlay backdrop on mobile */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/60 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
 
       <Sidebar
         currentChapter={currentChapter}
@@ -30,16 +45,37 @@ export default function CoursePage({ currentChapter, currentTab, progress, perce
         percent={percent}
         isComplete={isComplete}
         isUnlocked={isUnlocked}
-        onChapterSelect={onChapterSelect}
+        onChapterSelect={handleChapterSelect}
         onTabChange={onTabChange}
         onBack={onBack}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
 
       <div className="flex-1 overflow-y-auto">
-        <div className="max-w-3xl mx-auto px-8 py-10">
+
+        {/* Mobile top bar */}
+        <div className="sticky top-0 z-20 flex items-center gap-3 px-4 py-3 bg-[#08081a]/95 backdrop-blur border-b border-white/[0.06] md:hidden">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="text-white/60 hover:text-white transition-colors p-1"
+            aria-label="Ouvrir le menu"
+          >
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="3" y1="6"  x2="19" y2="6"  />
+              <line x1="3" y1="12" x2="19" y2="12" />
+              <line x1="3" y1="18" x2="19" y2="18" />
+            </svg>
+          </button>
+          <span className="text-white/50 text-xs font-mono truncate">
+            {chapter.emoji} {chapter.title}
+          </span>
+        </div>
+
+        <div className="max-w-3xl mx-auto px-4 md:px-8 py-6 md:py-10">
 
           <div className="flex items-start justify-between mb-2">
-            <h1 className="text-2xl font-black leading-tight">
+            <h1 className="text-xl md:text-2xl font-black leading-tight">
               {chapter.emoji} {chapter.title}
             </h1>
             <span className="text-white/25 text-sm font-mono flex-shrink-0 ml-4 mt-1">{chapter.duration}</span>
@@ -51,7 +87,7 @@ export default function CoursePage({ currentChapter, currentTab, progress, perce
               <button
                 key={tab}
                 onClick={() => onTabChange(tab)}
-                className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                className={`px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all ${
                   currentTab === tab
                     ? 'bg-white text-[#08081a]'
                     : 'text-white/40 hover:text-white/70 hover:bg-white/[0.04]'
