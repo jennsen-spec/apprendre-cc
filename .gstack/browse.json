@@ -1,0 +1,9 @@
+{
+  "pid": 81229,
+  "port": 24623,
+  "token": "bd803734-6177-4e65-89a7-2cc22a5e5f19",
+  "startedAt": "2026-05-23T15:22:38.052Z",
+  "serverPath": "/Users/jeanbrunel/.claude/skills/gstack/browse/src/server.ts",
+  "mode": "launched",
+  "configHash": "303a7eeccc03078b"
+}
