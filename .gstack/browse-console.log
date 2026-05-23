@@ -1,9 +1,0 @@
-[2026-05-23T15:22:38.463Z] [warning] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
-[2026-05-23T15:22:38.517Z] [debug] [vite] connecting...
-[2026-05-23T15:22:38.595Z] [debug] [vite] connected.
-[2026-05-23T15:22:38.711Z] [info] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold
-[2026-05-23T15:34:26.183Z] [log] [vite] server connection lost. Polling for restart...
-[2026-05-23T15:34:26.386Z] [warning] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
-[2026-05-23T15:34:26.476Z] [debug] [vite] connecting...
-[2026-05-23T15:34:26.514Z] [info] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold
-[2026-05-23T15:34:26.594Z] [debug] [vite] connected.
